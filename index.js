@@ -1,13 +1,17 @@
 const express = require("express")
 const app = express()
+const path = require('path')
+
+app.use(express.json())
+app.use(express.urlencoded())
 
 app.post("/submit", async (req, res) => {
-    console.log(req.body)
-    // const {term} = req.body
+    const {term} = req.body
+
 
     const body = {
         chat_id: -4580487516,
-        text: "term"
+        text: term
     }
 
     try {
@@ -32,7 +36,7 @@ app.post("/submit", async (req, res) => {
 app.use(express.static("views"))
 
 app.get("/", (req, res) => {
-    return res.send("Hello")
+    return res.sendFile(path.join(__dirname, './views', "home.html"))
 })
 
 app.listen(3000, () => console.log("APP Running"))
